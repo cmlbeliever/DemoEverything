@@ -28,7 +28,7 @@
 
 	<rabbit:admin connection-factory="connectionFactory" />
 
-	<rabbit:template exchange="amqpExchange" id="rabbitTemplate"
+	<rabbit:template exchange="test-mq-exchange" id="rabbitTemplate"
 		queue="newquene" connection-factory="connectionFactory" />
 
 	<rabbit:queue name="newquene" id="newquene" auto-delete="false"
@@ -41,8 +41,8 @@
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
 
-	<rabbit:listener-container
-		connection-factory="connectionFactory" acknowledge="auto">
+	<rabbit:listener-container prefetch="1"
+		connection-factory="connectionFactory" acknowledge="manual">
 		<rabbit:listener queues="newquene" ref="queueListenter" />
 	</rabbit:listener-container>
 
