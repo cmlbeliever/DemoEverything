@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  */
 public class ReceiveLogs {
-	private static final String EXCHANGE_NAME = "logs";
+	private static final String EXCHANGE_NAME = "myexchange2";
 
 	public static void main(String[] argv) throws Exception {
 		ConnectionFactory factory = new ConnectionFactory();

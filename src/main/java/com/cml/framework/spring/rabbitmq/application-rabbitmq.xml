@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>AMQP</description>
+
+	<context:property-placeholder
+		location="classpath:config/rabbitmq/rabbitmq.properties" />
+
+	<!-- 单元测试时可以使用：SingleConnectionFactory -->
+	<bean id="connectionFactory"
+		class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg value="${rabbitmq.host}" />
+		<property name="username" value="${rabbitmq.username}" />
+		<property name="password" value="${rabbitmq.password}" />
+		<property name="channelCacheSize" value="${rabbitmq.channelCacheSize}" />
+	</bean>
+	<bean id="rabbitAdmin" class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+		<constructor-arg ref="connectionFactory" />
+	</bean>
+	<bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="exchange" value="${rabbitmq.exchange}" />
+		<property name="queue" value="newquene"/>
+	</bean>
+
+	<bean class="com.cml.framework.spring.rabbitmq.MailService">
+		<property name="rabbitTemplate" ref="rabbitTemplate" />
+	</bean>
+
+	<!-- 监听消息，需要指定quene -->
+	<bean id="containerListner"
+		class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="messageListener">
+			<bean class="com.cml.framework.spring.rabbitmq.MessageReceiver" />
+		</property>
+		<property name="rabbitAdmin" ref="rabbitAdmin" />
+		<property name="queues" value="newquene" />
+	</bean>
+
+	<!-- 指定exchange为fanout -->
+	<bean class="org.springframework.amqp.core.FanoutExchange">
+		<constructor-arg value="${rabbitmq.exchange}" />
+	</bean>
+	<bean class="org.springframework.amqp.core.DirectExchange">
+		<constructor-arg value="${rabbitmq.exchange}" />
+	</bean>
+
+</beans>
