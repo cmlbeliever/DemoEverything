@@ -26,8 +26,6 @@
 		host="${rabbitmq.host}" username="${rabbitmq.username}" password="${rabbitmq.password}"
 		channel-cache-size="${rabbitmq.channelCacheSize}" />
 
-	<rabbit:connection-factory
-		connection-factory="connectionFactory" />
 	<rabbit:admin connection-factory="connectionFactory" />
 
 	<rabbit:template exchange="amqpExchange" id="rabbitTemplate"
