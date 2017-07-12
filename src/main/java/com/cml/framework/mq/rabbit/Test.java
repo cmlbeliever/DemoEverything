@@ -3,6 +3,7 @@ package com.cml.framework.mq.rabbit;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 
 public class Test {
 	// 队列名称
@@ -25,7 +26,11 @@ public class Test {
 		// 指定一个队列
 		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 		// 发送的消息
-		String message = "hello world!"+System.currentTimeMillis();
+		String message = "hello world!" + System.currentTimeMillis();
+
+		// 发送需要持久化的消息
+		// channel.basicPublish("", "task_queue",
+		// MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
 		// 往队列中发出一条消息
 		channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
 		System.out.println(" [x] Sent '" + message + "'");
