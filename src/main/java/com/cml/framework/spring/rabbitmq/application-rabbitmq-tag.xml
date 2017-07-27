@@ -42,8 +42,8 @@
 	</rabbit:direct-exchange>
 
 	<rabbit:listener-container prefetch="1"
-		connection-factory="connectionFactory" acknowledge="manual">
-		<rabbit:listener queues="newquene" ref="queueListenter" />
+		connection-factory="connectionFactory" acknowledge="auto"  >
+		<rabbit:listener queues="newquene" ref="queueListenter" method="onMessageArrived" />
 	</rabbit:listener-container>
 
 	<bean id="queueListenter" class="com.cml.framework.spring.rabbitmq.MessageReceiver" />

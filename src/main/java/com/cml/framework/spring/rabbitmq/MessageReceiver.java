@@ -1,13 +1,21 @@
 package com.cml.framework.spring.rabbitmq;
 
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 
 import com.rabbitmq.client.Channel;
 
-public class MessageReceiver implements ChannelAwareMessageListener {
+public class MessageReceiver {
 
-	@Override
+	public void onMessageArrived(String msg) throws Exception {
+
+		try {
+			System.out.println("MessageReceiver.onMessageArrived:" + msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}
+
 	public void onMessage(Message message, Channel channel) throws Exception {
 		String msg = new String(message.getBody());
 
