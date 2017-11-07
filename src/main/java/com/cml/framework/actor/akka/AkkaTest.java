@@ -12,7 +12,7 @@ public class AkkaTest {
 		try {
 			ActorRef senderActor = system.actorOf(DeviceSenderActor.props());
 			ActorRef supervisor = system.actorOf(HelloWorldActor.props(), "hello-supervisor");
-
+			
 			supervisor.tell("hello world", senderActor);
 		} catch (Exception e) {
 			e.printStackTrace();
