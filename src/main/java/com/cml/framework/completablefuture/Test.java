@@ -15,7 +15,7 @@ public class Test {
 		// 异步获取数据，同步处理返回值
 		String result = CompletableFuture.supplyAsync(() -> "hello " + Thread.currentThread().getId())
 				.thenApply(s -> s + " world " + Thread.currentThread().getId()).join();
-		System.out.println("mainThreadId:" + Thread.currentThread().getId() + ",result:" + result);
+		System.out.println("==>1:mainThreadId:" + Thread.currentThread().getId() + ",result:" + result);
 
 		// 只处理返回结果，没有返回值
 		CompletableFuture.supplyAsync(() -> "getValueFromApi" + Thread.currentThread().getId()).thenAccept(c -> {
@@ -52,7 +52,7 @@ public class Test {
 		}), (v1, v2) -> {
 			return v1 + "," + v2 + ",mergeThreadId:" + Thread.currentThread().getId();
 		}).join();
-		System.out.println("合并两个请求值：" + combineResult);
+		System.out.println("==>2:合并两个请求值：" + combineResult);
 
 		//
 		CompletableFuture.supplyAsync(() -> {
@@ -87,7 +87,7 @@ public class Test {
 			}
 			return "hello world";
 		}), s -> s).join();
-		System.out.println(result);
+		System.out.println("==>3:"+result);
 
 		// 测试异常时返回处理数据
 		result = CompletableFuture.supplyAsync(() -> {
@@ -104,7 +104,7 @@ public class Test {
 			// System.out.println(e.getMessage());
 			return "异常结果自定义返回了！！！";
 		}).join();
-		System.out.println(result);
+		System.out.println("==>4:"+result);
 
 		// 出现异常时进行处理，这里可以一起处理正常和异常的数据
 		result = CompletableFuture.supplyAsync(() -> {
@@ -124,7 +124,7 @@ public class Test {
 			}
 			return s;
 		}).join();
-		System.out.println("异常情况处理，正常时不处理：" + result);
+		System.out.println("==>5:异常情况处理，正常时不处理：" + result);
 
 		System.out.println("=====end=====");
 		Thread.sleep(1000);
