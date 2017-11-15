@@ -13,6 +13,5 @@ public class RateLimitTest {
 		System.out.println(rateLimiter.acquire());
 		System.out.println(rateLimiter.acquire());
 		
-		Lea
 	}
 }
