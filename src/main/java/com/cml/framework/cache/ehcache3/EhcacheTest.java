@@ -15,7 +15,7 @@ import org.ehcache.spi.serialization.Serializer;
 import org.ehcache.spi.serialization.SerializerException;
 
 public class EhcacheTest {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		PersistentCacheManager persistentCacheManager = CacheManagerBuilder.newCacheManagerBuilder()
 				.with(CacheManagerBuilder.persistence(new File("E:/cache", "myData")))
 				.withCache("threeTieredCache",
@@ -26,10 +26,16 @@ public class EhcacheTest {
 
 		long testSize = 3000;
 		for (long i = 0; i < testSize; i++) {
-			System.out.println(i + ",上次缓存value:" + threeTieredCache.get(i));
-			threeTieredCache.put(i, new TestModel("test" + i, System.currentTimeMillis()));
+			final long index = i;
+			new Thread() {
+				public void run() {
+					System.out.println(index + ",上次缓存value:" + threeTieredCache.get(index));
+					threeTieredCache.put(index, new TestModel("test" + index, System.currentTimeMillis()));
+				};
+			}.start();
 		}
 
+		Thread.sleep(20000);
 		persistentCacheManager.close();
 	}
 
