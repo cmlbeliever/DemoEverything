@@ -16,7 +16,12 @@ public class RedisTest {
 		user.setUsername("testusername");
 		user.setAge(2);
 		jedis.set("User:Object:Text:2".getBytes(), serialize(user));
-		System.out.println(unserizlize(jedis.get("User:Object:Text:2").getBytes()));
+		String data = jedis.get("User:Object:Text:2");
+		System.out.println("data:====>" + data);
+
+		System.out.println(unserizlize(jedis.get("User:Object:Text:2".getBytes())));
+		
+		
 		// jedis.set("testkey", "1");
 		// jedis.expire("testkey", 5);
 		// System.out.println(jedis.get("testkey"));
@@ -81,6 +86,17 @@ public class RedisTest {
 			return byt;
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				obi.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				bai.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -95,8 +111,18 @@ public class RedisTest {
 			Object obj = oii.readObject();
 			return obj;
 		} catch (Exception e) {
-
 			e.printStackTrace();
+		} finally {
+			try {
+				bis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				oii.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return null;
