@@ -1,10 +1,22 @@
 package com.cml.framework;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class T {
 	public static void main(String[] args) {
+		new ArrayList<>().forEach(t -> {
+			System.out.println(t);
+		});
+		System.out.println("===========结束=====");
+		ReentrantLock lock = new ReentrantLock();
+		lock.lock();
 		String data1 = "EE 04 01 7A 20 4F 41 4F 1C 33 1A 27 18 21 16 40 45 38 12 EF";
 		String data2 = "EE 04 02 29 10 30 5B 59 51 5B 49 5B 5B 51 45 57 4B 6E 6C EF";
 		String data3 = "EE 04 03 1E 1C 52 63 26 3E 60 16 5E 67 13 61 5C 1E 11 1A EF";
@@ -23,7 +35,7 @@ public class T {
 		int offset = 1;
 		StringBuffer sb = new StringBuffer();
 		String[] msgArray = msg.split(" ");
-		for (int i = 0; i < msgArray.length ; i++) {
+		for (int i = 0; i < msgArray.length; i++) {
 			int value = Integer.parseInt(msgArray[i], 16);
 			char v = (char) (value + offset);
 			sb.append(v);
