@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Built-By: admin
-Build-Jdk: 1.8.0_161
-Implementation-Title: webeverything
-Implementation-Version: 1.0
-Implementation-Vendor-Id: com.cml.learn
-Created-By: Maven Integration for Eclipse
-
