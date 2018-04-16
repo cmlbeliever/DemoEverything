@@ -19,7 +19,7 @@ public class RedisTest2 {
 	public static void main(String[] args) throws Exception {
 		JedisPoolConfig config = new JedisPoolConfig();
 		config.setMaxTotal(30);
-		final JedisPool pool = new JedisPool(config, "127.0.0.1");
+		final JedisPool pool = new JedisPool(config, "192.168.99.100");
 		pool.getResource().del("userTokens");
 		ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2 + 1);
 		long time = System.currentTimeMillis();
