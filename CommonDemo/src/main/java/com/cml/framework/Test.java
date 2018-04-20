@@ -1,11 +1,11 @@
 package com.cml.framework;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 public class Test {
 	public static void main(String[] args) {
-		Integer a = 1000, b = 1000;
-		AtomicLong al = new AtomicLong();
-		System.out.println(a == b);
+	System.out.println(Arrays.asList().stream().collect(Collectors.toList()));
 	}
 }

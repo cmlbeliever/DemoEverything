@@ -18,7 +18,11 @@ public class RetryApplication {
 	public ApplicationRunner runner(RetryTestService retryTestService) {
 		return (args) -> {
 			try {
-				retryTestService.testRetry(100);
+				// retryTestService.testRetry(100);
+				retryTestService.testRetry2(() -> {
+					System.out.println("执行我的业务逻辑！！！");
+					throw new IllegalStateException("test");
+				});
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
