@@ -52,6 +52,21 @@ public class RedissionTest {
 				});
 			}
 		}).start();
+		new Thread(() -> {
+			for (int i = 0; i < 10; i++) {
+				final String key = "newTest" + i;
+				RMapCache<String, String> cache = redisson.getMapCache(key);
+				long ttl = i > 7 ? 1 : 50;
+				cache.put("testV" + i, "xxx", ttl, TimeUnit.SECONDS);
+				cache.addListener(new EntryExpiredListener<String, String>() {
+
+					@Override
+					public void onExpired(EntryEvent<String, String> event) {
+						System.out.println("====>expire:" + event.getKey() + ",key:" + key + ",value:" + event.getValue());
+					}
+				});
+			}
+		}).start();
 
 		Thread.sleep(20000);
 

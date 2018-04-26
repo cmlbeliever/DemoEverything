@@ -13,7 +13,7 @@ public class RetryEntance {
 		// TimeoutRetryPolicy policy = new TimeoutRetryPolicy();
 		// policy.setTimeout(3000L);
 
-		SimpleRetryPolicy timesRetryPolicy = new SimpleRetryPolicy(4);
+		SimpleRetryPolicy timesRetryPolicy = new SimpleRetryPolicy(0);
 		FixedBackOffPolicy f = new FixedBackOffPolicy();
 		f.setBackOffPeriod(1500);
 		template.setBackOffPolicy(f);
