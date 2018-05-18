@@ -1,4 +1,4 @@
-package com.cml.framework.snowflake;
+package com.cml.framework.distribute.snowflake;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -145,22 +145,4 @@ public class SnowflakeIdWorker {
 		return System.currentTimeMillis();
 	}
 
-	// ==============================Test=============================================
-	/** 测试 */
-	public static void main(String[] args) {
-		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
-		int count = Integer.MAX_VALUE;
-		Set<Long> value = new HashSet<>();
-		for (int i = 0; i < count; i++) {
-			long id = idWorker.nextId();
-			if (value.contains(id)) {
-				System.out.println("遇到重复的了！！！");
-				break;
-			} else {
-				System.out.println("i:"+i);
-				value.add(id);
-			}
-		}
-		System.out.println("执行结束");
-	}
 }

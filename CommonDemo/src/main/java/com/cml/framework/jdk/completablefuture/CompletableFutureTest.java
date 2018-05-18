@@ -1,8 +1,8 @@
-package com.cml.framework.completablefuture;
+package com.cml.framework.jdk.completablefuture;
 
 import java.util.concurrent.CompletableFuture;
 
-public class Test {
+public class CompletableFutureTest {
 	/**
 	 * @param args
 	 * @throws InterruptedException
