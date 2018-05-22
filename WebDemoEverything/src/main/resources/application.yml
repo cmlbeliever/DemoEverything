@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.99.100:3307/jooqtest?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
