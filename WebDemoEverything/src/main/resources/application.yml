@@ -4,3 +4,11 @@ spring:
     url: jdbc:mysql://192.168.99.100:3307/jooqtest?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
+    hikari:
+      isReadOnly : true
+      max-wait: 10000
+      max-active: 50
+      maxPoolSize: 60
+      test-on-borrow: true
+      defaultAutoCommit: false
+      initialSize : 20

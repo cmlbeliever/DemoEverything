@@ -30,6 +30,6 @@ public class TransactionTest {
             System.out.println("testTransaction=======>ID: " + id + " first name: " + firstName + " last name: " + lastName);
         }
 
-        throw new IllegalArgumentException("主动测试异常");
+//        throw new IllegalArgumentException("主动测试异常");
     }
 }

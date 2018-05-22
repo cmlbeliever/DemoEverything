@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
+
 import static com.cml.learn.jooq.domain.Tables.AUTHOR;
 
 @EnableTransactionManagement
@@ -23,6 +25,9 @@ public class JooQApplication {
     @Autowired
     private DSLContext dslContext;
 
+    @Autowired
+    DataSource dataSource;
+
     @Bean
     public ApplicationRunner runner() {
         return (args) -> {
@@ -31,8 +36,7 @@ public class JooQApplication {
                 Long id = r.getValue(AUTHOR.ID);
                 String firstName = r.getValue(AUTHOR.FIRST_NAME);
                 String lastName = r.getValue(AUTHOR.LAST_NAME);
-
-                System.out.println("=======>ID: " + id + " first name: " + firstName + " last name: " + lastName);
+                System.out.println("=======>ID: " + id + " first name: " + firstName + " last name: " + lastName+":"+dataSource.getClass());
             }
         };
     }
