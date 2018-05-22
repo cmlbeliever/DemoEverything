@@ -20,8 +20,7 @@ public class RedisTest {
 		System.out.println("data:====>" + data);
 
 		System.out.println(unserizlize(jedis.get("User:Object:Text:2".getBytes())));
-		
-		
+
 		// jedis.set("testkey", "1");
 		// jedis.expire("testkey", 5);
 		// System.out.println(jedis.get("testkey"));
