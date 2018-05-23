@@ -7,6 +7,12 @@
             </Pattern>
         </layout>
     </appender>
+    <logger name="com.cml.learn.jooq" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.jooq.tools.LoggerListener" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
