@@ -31,6 +31,7 @@ public class JooQApplication {
     @Bean
     public ApplicationRunner runner() {
         return (args) -> {
+            System.out.println(dataSource.getClass());
             Result<Record> result = dslContext.select().from(AUTHOR).fetch();
             for (Record r : result) {
                 Long id = r.getValue(AUTHOR.ID);
