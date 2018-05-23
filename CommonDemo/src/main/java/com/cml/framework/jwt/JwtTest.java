@@ -4,7 +4,7 @@ import com.cml.framework.distribute.snowflake.SnowflakeIdWorker;
 import org.jose4j.lang.JoseException;
 
 public class JwtTest {
-    public static void main(String[] args) throws JoseException {
+    public static void main(String[] args) throws JoseException, InterruptedException {
         String key = JwtUtil.randomKey(32);
         System.out.println(key);
 
@@ -13,6 +13,7 @@ public class JwtTest {
 
         String jwtToken = JwtUtil.encrypt(key, token);
         System.out.println(jwtToken);
+        Thread.sleep(3000);
         String decrypt = JwtUtil.decrypt(key, jwtToken);
         System.out.println(decrypt);
     }
