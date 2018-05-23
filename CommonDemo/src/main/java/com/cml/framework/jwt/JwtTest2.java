@@ -9,6 +9,7 @@ import org.jose4j.jwk.EllipticCurveJsonWebKey;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.NumericDate;
 import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class JwtTest2 {
-    public static void main(String[] args) throws JoseException {
+    public static void main(String[] args) throws JoseException, InterruptedException {
         // Generate an EC key pair, which will be used for signing and verification of the JWT, wrapped in a JWK
         EllipticCurveJsonWebKey senderJwk = EcJwkGenerator.generateJwk(EllipticCurves.P256);
 
@@ -37,7 +38,8 @@ public class JwtTest2 {
         JwtClaims claims = new JwtClaims();
         claims.setIssuer("sender");  // who creates the token and signs it
         claims.setAudience("receiver"); // to whom the token is intended to be sent
-        claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
+        claims.setExpirationTime(NumericDate.fromMilliseconds(System.currentTimeMillis()+1));
+//        claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
         claims.setGeneratedJwtId(); // a unique identifier for the token
         claims.setIssuedAtToNow();  // when the token was issued/created (now)
         claims.setNotBeforeMinutesInThePast(2); // time before which the token is not yet valid (2 minutes ago)
@@ -102,6 +104,7 @@ public class JwtTest2 {
         System.out.println("JWT: " + jwt.length());
         System.out.println("JWT: " + jwt);
 
+        Thread.sleep(2000);
 
         // Use JwtConsumerBuilder to construct an appropriate JwtConsumer, which will
         // be used to validate and process the JWT.

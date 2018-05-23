@@ -6,7 +6,6 @@ import org.jose4j.jwe.JsonWebEncryption;
 import org.jose4j.jwe.KeyManagementAlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
-import org.jose4j.jwt.NumericDate;
 import org.jose4j.keys.AesKey;
 import org.jose4j.lang.ByteUtil;
 import org.jose4j.lang.JoseException;
@@ -29,10 +28,9 @@ public class JwtUtil {
         JsonWebEncryption jwe = new JsonWebEncryption();
 
         JwtClaims claims = new JwtClaims();
-        claims.setExpirationTime(NumericDate.fromMilliseconds(System.currentTimeMillis() + 2));
         claims.setIssuer("sender");  // who creates the token and signs it
         claims.setAudience("receiver"); // to whom the token is intended to be sent
-//        claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
+        claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
         claims.setGeneratedJwtId(); // a unique identifier for the token
         claims.setIssuedAtToNow();  // when the token was issued/created (now)
         claims.setNotBeforeMinutesInThePast(2); // time before which the token is not yet valid (2 minutes ago)
