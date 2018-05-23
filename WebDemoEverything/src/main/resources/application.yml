@@ -6,13 +6,13 @@ spring:
     password: root
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
-      isReadOnly : true
-      max-wait: 10000
-      max-active: 50
-      maxPoolSize: 60
-      test-on-borrow: true
-      defaultAutoCommit: false
+      connectionTimeout : 5000
+      minimumIdle: 20
+      readOnly: false
+      autoCommit: false
       initialSize : 20
+      maximumPoolSize : 100
+      poolName: myHikari
 
 server:
-  port: 8081
+  port: 9082
