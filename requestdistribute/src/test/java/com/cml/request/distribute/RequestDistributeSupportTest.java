@@ -22,6 +22,8 @@ public class RequestDistributeSupportTest {
             @Override
             protected String distributeOnGetToken(RequestArgs requestArgs) {
 //                System.out.println("distributeOnGetToken");
+                if (true)
+                    throw  new RuntimeException("exception");
                 return "distributeOnGetToken";
             }
 
