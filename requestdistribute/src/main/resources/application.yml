@@ -1,0 +1,12 @@
+cml:
+  request-distribute:
+    enable: true
+    rate: 0.3
+    policy:
+      - group: makeinvoice
+        rate: 1
+        enable: false
+      - group: print
+        rate: 2
+      - group: rededit
+        rate: 0.001
