@@ -1,8 +1,8 @@
 package com.cml.request.distribute;
 
-public abstract class AbstractRequestDistribute<T> implements RequestDistribute<T> {
+public abstract class AbstractRequestDistribute<T,R> implements RequestDistribute<T,R> {
 
-    public String distribute(T t) {
+    public R distribute(T t) {
         boolean aquiredToken = tryAquireToken(t);
         try {
             if (aquiredToken) {
@@ -22,11 +22,11 @@ public abstract class AbstractRequestDistribute<T> implements RequestDistribute<
      * @param t
      * @return
      */
-    protected abstract String distributeOnError(Exception e, boolean aquiredToken, T t);
+    protected abstract R distributeOnError(Exception e, boolean aquiredToken, T t);
 
-    protected abstract String distributeWithoutToken(T t) throws Exception;
+    protected abstract R distributeWithoutToken(T t) throws Exception;
 
-    protected abstract String distributeOnGetToken(T t) throws Exception;
+    protected abstract R distributeOnGetToken(T t) throws Exception;
 
     /**
      * 获取分发令牌

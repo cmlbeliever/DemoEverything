@@ -1,6 +1,6 @@
 package com.cml.request.distribute;
 
-public interface RequestDistribute<T> {
+public interface RequestDistribute<T, R> {
 
     /**
      * 进行请求分发
@@ -8,5 +8,5 @@ public interface RequestDistribute<T> {
      * @param t
      * @return
      */
-    String distribute(T t);
+    R distribute(T t);
 }

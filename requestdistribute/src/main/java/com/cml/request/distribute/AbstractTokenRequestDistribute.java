@@ -1,6 +1,6 @@
 package com.cml.request.distribute;
 
-public abstract class AbstractTokenRequestDistribute<T> extends AbstractRequestDistribute<T> {
+public abstract class AbstractTokenRequestDistribute<T, R> extends AbstractRequestDistribute<T, R> {
 
     private DistributeRateLimiter rateLimiter;
     private DistributeGroupManager<T> groupManager;

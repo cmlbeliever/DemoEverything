@@ -1,19 +1,19 @@
 package com.cml.request.distribute;
 
-public class RequestDistributeSupport<T> extends AbstractTokenRequestDistribute<T> {
+public class RequestDistributeSupport<T, R> extends AbstractTokenRequestDistribute<T, R> {
 
     @Override
-    protected String distributeOnError(Exception e, boolean aquiredToken, T requestArgs) {
+    protected R distributeOnError(Exception e, boolean aquiredToken, T requestArgs) {
         return null;
     }
 
     @Override
-    protected String distributeWithoutToken(T requestArgs) {
+    protected R distributeWithoutToken(T requestArgs) throws Exception {
         return null;
     }
 
     @Override
-    protected String distributeOnGetToken(T requestArgs) {
+    protected R distributeOnGetToken(T requestArgs) throws Exception {
         return null;
     }
 }
