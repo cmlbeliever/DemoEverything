@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RequestDistributeSupportTest {
     @Test
     public void testDistribute() {
-        RequestDistributeSupport support = new RequestDistributeSupport() {
+        RequestDistributeSupport<RequestArgs> support = new RequestDistributeSupport<RequestArgs>() {
             @Override
             protected String distributeOnError(Exception e, boolean aquiredToken, RequestArgs requestArgs) {
 //                System.out.println("distributeOnError");
