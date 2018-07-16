@@ -13,6 +13,8 @@ public class FilterRequestDistribute extends RequestDistributeSupport<RequestArg
 
     private RequestDistributeCallback<RequestArgs, Void> callback;
 
+    private RequestArgConverter<RequestArgs> requestArgsRequestArgConverter = new DefaultRequestArgConterver();
+
     @Override
     protected Void distributeWithoutToken(RequestArgs requestArgs) throws Exception {
         if (null != callback) {
@@ -45,22 +47,17 @@ public class FilterRequestDistribute extends RequestDistributeSupport<RequestArg
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        RequestArgs requestArgs = new RequestArgs();
-        requestArgs.setChain(chain);
-        requestArgs.setRequest((HttpServletRequest) request);
-        requestArgs.setResponse((HttpServletResponse) response);
-        requestArgs.setPath(((HttpServletRequest) request).getRequestURI());
-        requestArgs.setRequestBody(getRequestBody((HttpServletRequest) request));
+        RequestArgs requestArgs = requestArgsRequestArgConverter.convert(request, response, chain);
         this.distribute(requestArgs);
-    }
-
-    protected String getRequestBody(HttpServletRequest request) {
-        return null;
     }
 
     @Override
     public void destroy() {
 
+    }
+
+    public void setRequestArgsRequestArgConverter(RequestArgConverter<RequestArgs> requestArgsRequestArgConverter) {
+        this.requestArgsRequestArgConverter = requestArgsRequestArgConverter;
     }
 
     public void setCallback(RequestDistributeCallback<RequestArgs, Void> callback) {

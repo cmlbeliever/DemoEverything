@@ -13,13 +13,13 @@ public class RequestDistributeAutoConfigurationTestConfiguration {
             @Override
             public Void distributeOnError(Exception e, boolean aquiredToken, RequestArgs requestArgs) {
                 System.out.println("distributeOnError");
-                e.printStackTrace();
+//                e.printStackTrace();
                 return null;
             }
 
             @Override
             public Void distributeWithoutToken(RequestArgs requestArgs) throws Exception {
-                System.out.println("distributeWithoutToken");
+                System.out.println("distributeWithoutToken===>" + requestArgs.getRequestBody());
                 return null;
             }
 

@@ -24,13 +24,22 @@ public class RequestDistributeAutoConfiguration {
         return filterRegistrationBean;
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public RequestArgConverter<RequestArgs> requestArgConverter() {
+        DefaultRequestArgConterver conterver = new DefaultRequestArgConterver();
+        conterver.setDecodeRequestBody(true);
+        return conterver;
+    }
+
     @ConditionalOnMissingBean
     @Bean
-    public FilterRequestDistribute requestDistribute(RequestDistributeCallback<RequestArgs, Void> callback, DistributeRateLimiter rateLimiter, DistributeGroupManager<RequestArgs> distributeGroupManager) {
+    public FilterRequestDistribute requestDistribute(RequestArgConverter<RequestArgs> requestArgConverter, RequestDistributeCallback<RequestArgs, Void> callback, DistributeRateLimiter rateLimiter, DistributeGroupManager<RequestArgs> distributeGroupManager) {
         FilterRequestDistribute distributeSupport = new FilterRequestDistribute();
         distributeSupport.setGroupManager(distributeGroupManager);
         distributeSupport.setCallback(callback);
         distributeSupport.setRateLimiter(rateLimiter);
+        distributeSupport.setRequestArgsRequestArgConverter(requestArgConverter);
         return distributeSupport;
     }
 

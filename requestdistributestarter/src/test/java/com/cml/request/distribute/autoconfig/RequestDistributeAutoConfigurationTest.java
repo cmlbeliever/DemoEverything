@@ -1,13 +1,12 @@
 package com.cml.request.distribute.autoconfig;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -51,7 +50,7 @@ public class RequestDistributeAutoConfigurationTest {
     public void testConfig() throws Exception {
 //        System.out.println(111);
         String uri = "/test";
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).content("测试参数").accept(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).content("测试参数dddddd").accept(MediaType.APPLICATION_JSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
