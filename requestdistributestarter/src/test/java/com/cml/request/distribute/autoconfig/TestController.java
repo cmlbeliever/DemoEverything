@@ -12,7 +12,7 @@ public class TestController {
     @RequestMapping("/test")
     @ResponseBody
     public String test(@RequestBody String body) {
-        return body;
+        return "withToken" + body;
 //        throw  new RuntimeException(body);
     }
 }

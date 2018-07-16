@@ -26,6 +26,8 @@ public class DefaultRequestArgConterver implements RequestArgConverter<RequestAr
                 requestArgs.setRequestBody(new String(content, encoding));
             }
         }
+        requestArgs.setRequest(servletRequest);
+        requestArgs.setUrl(servletRequest.getRequestURL().toString());
         requestArgs.setPath(servletRequest.getRequestURI());
         requestArgs.setResponse((HttpServletResponse) response);
         requestArgs.setChain(chain);
