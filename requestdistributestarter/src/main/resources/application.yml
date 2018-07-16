@@ -1,7 +1,7 @@
 cml:
   request-distribute:
     enable: true
-    rate: 0.3
+    rate: 0.01
     policy:
       - group: makeinvoice
         rate: 1
