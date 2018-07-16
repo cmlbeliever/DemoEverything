@@ -3,9 +3,9 @@ cml:
     enable: true
     rate: 0.01
     policy:
-      - group: makeinvoice
-        rate: 1
-        enable: false
+      - group: test
+        rate: 2
+        enable: true
       - group: print
         rate: 2
       - group: rededit

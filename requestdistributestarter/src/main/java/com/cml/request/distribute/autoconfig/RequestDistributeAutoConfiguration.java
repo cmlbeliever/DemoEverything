@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-@Configuration
+@EnableScheduling
 public class RequestDistributeAutoConfiguration {
 
     @Bean
@@ -46,7 +46,12 @@ public class RequestDistributeAutoConfiguration {
     @ConditionalOnMissingBean
     @Bean
     public DistributeGroupManager<RequestArgs> distributeGroupManager() {
-        return (arg) -> arg.getPath().replace("/", "-");
+        return (arg) -> {
+            if (arg.getPath().startsWith("/")) {
+                return arg.getPath().substring(1).replace("/", "-");
+            }
+            return arg.getPath().replace("/", "-");
+        };
     }
 
     @ConditionalOnMissingBean

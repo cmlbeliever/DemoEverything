@@ -1,13 +1,13 @@
 package com.cml.request.distribute.autoconfig;
 
+import com.cml.request.distribute.autoconfig.anon.EnableAutoDistributeRequest;
 import com.cml.request.distribute.autoconfig.dispatcher.RequestDispatcher;
 import com.cml.request.distribute.autoconfig.dispatcher.StringRequestDispatcher;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 
+@EnableAutoDistributeRequest
 @SpringBootApplication
-@Import(RequestDistributeAutoConfiguration.class)
 public class RequestDistributeAutoConfigurationTestConfiguration {
 
     @Bean
