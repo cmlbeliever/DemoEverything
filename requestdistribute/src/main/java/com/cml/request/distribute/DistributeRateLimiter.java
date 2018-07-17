@@ -5,5 +5,5 @@ public interface DistributeRateLimiter {
      * 获取请求令牌
      * @return true：
      */
-    boolean tryAquireToken(String group);
+    boolean tryAcquireToken(String group);
 }

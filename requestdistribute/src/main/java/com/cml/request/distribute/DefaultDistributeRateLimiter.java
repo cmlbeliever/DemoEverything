@@ -12,7 +12,7 @@ public class DefaultDistributeRateLimiter implements DistributeRateLimiter {
     private ConcurrentHashMap<String, RateLimiter> rateLimiterConcurrentHashMap = new ConcurrentHashMap<>();
     private RateLimiter defaultRateLimiter;
 
-    public boolean tryAquireToken(final String group) {
+    public boolean tryAcquireToken(final String group) {
         //启用了分流设置
         if (requestDistributeConfig.isEnable()) {
             //获取分流配置

@@ -9,7 +9,7 @@ public abstract class AbstractTokenRequestDistribute<T, R> extends AbstractReque
     protected boolean tryAquireToken(T args) {
         String group = groupManager.getGroup(args);
         if (null != group) {
-            return rateLimiter.tryAquireToken(group);
+            return rateLimiter.tryAcquireToken(group);
         }
         return false;
     }
