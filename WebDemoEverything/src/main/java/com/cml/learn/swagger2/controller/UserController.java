@@ -77,6 +77,7 @@ public class UserController {
 	public ResponseEntity<JsonResult> getUserList() {
 		JsonResult r = new JsonResult();
 		try {
+			Thread.sleep(500);
 			List<User> userList = new ArrayList<User>(users.values());
 			r.setResult(userList);
 			r.setStatus("ok");
