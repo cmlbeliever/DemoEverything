@@ -4,8 +4,8 @@ cml:
     rate: 0.01
     policy:
       - group: test
-        rate: 2
-        enable: true
+        rate: 1
+        enable: false
       - group: print
         rate: 2
       - group: rededit

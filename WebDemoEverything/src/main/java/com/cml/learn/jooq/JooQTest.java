@@ -1,5 +1,6 @@
 package com.cml.learn.jooq;
 
+import com.cml.learn.jooq.domain.AuthorBean;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 
@@ -37,6 +38,8 @@ public class JooQTest {
 
             String lastName = create.select(AUTHOR.LAST_NAME).from(AUTHOR).limit(1).fetchOptionalInto(String.class).orElse("none");
             System.out.println("===>lastname:" + lastName);
+            AuthorBean bean=     create.select(AUTHOR.LAST_NAME).from(AUTHOR).limit(1).fetchOneInto(AuthorBean.class);
+            System.out.println("bean--->"+bean.getLastName());
 
         }
 

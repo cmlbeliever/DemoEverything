@@ -16,3 +16,17 @@ spring:
 
 server:
   port: 9082
+
+
+
+cml:
+  request-distribute:
+    enable: true
+    policy:
+      - group: makeinvoice
+        rate: 1
+        enable: false
+      - group: print
+        rate: 2
+      - group: rededit
+        rate: 0.001
