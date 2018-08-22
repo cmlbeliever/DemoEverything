@@ -11,7 +11,7 @@ public class LogEventProducer {
 
     public void send(String log) {
         long sequence = ringBuffer.next();
-        System.out.println("producer:" + sequence);
+//        System.out.println("producer:" + sequence);
         try {
             LogEvent event = ringBuffer.get(sequence);
             event.setLog(log);

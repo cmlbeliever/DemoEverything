@@ -5,7 +5,8 @@ import com.lmax.disruptor.EventHandler;
 
 public class LogEventHandler implements EventHandler<LogEvent> {
     @Override
-    public void onEvent(LogEvent logEvent, long l, boolean b) throws Exception {
-        System.out.println("logEvent:" + logEvent + ",:l:" + l + ",boolean:" + b);
+    public void onEvent(LogEvent event, long sequence, boolean endOfBatch) throws Exception {
+        System.out.println("logEvent:" + event + ",sequence:" + sequence + ",endOfBatch:" + endOfBatch + ",Thread:" + Thread.currentThread().getId());
+//        Thread.sleep(1000);
     }
 }

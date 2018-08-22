@@ -1,12 +1,16 @@
 package com.cml.framework.disruptor;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.YieldingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * Disruptor 定义了 com.lmax.disruptor.WaitStrategy 接口用于抽象 Consumer 如何等待新事件，这是策略模式的应用。
@@ -24,20 +28,33 @@ public class Entrance {
 
 //        RingBuffer<LogEvent> ringBuffer = RingBuffer.create(ProducerType.MULTI, new LogEventFactory(), 1024, new YieldingWaitStrategy());
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        Disruptor<LogEvent> disruptor = new Disruptor<LogEvent>(new LogEventFactory(), 1024, executorService);
-        disruptor.handleEventsWith(new LogEventHandler());
+//        Disruptor<LogEvent> disruptor = new Disruptor<LogEvent>(new LogEventFactory(), 1024, executorService);
+//        Disruptor<LogEvent> disruptor = new Disruptor<LogEvent>(new LogEventFactory(),
+//                1024, executorService, ProducerType.SINGLE,
+//                new YieldingWaitStrategy());
+        int ringBufferSize = 1024;
+        Disruptor<LogEvent> disruptor = new Disruptor<>(new LogEventFactory(),
+                ringBufferSize, new ThreadFactoryBuilder().build(), ProducerType.MULTI,
+                new YieldingWaitStrategy());
+        //多个消费者之间会重复消费消息
+        disruptor.handleEventsWith(new LogEventHandler(), new LogEventHandler());
+        //多个消费者共同处理消息
+//        disruptor.handleEventsWithWorkerPool(new LogEventPoolHandler(), new LogEventPoolHandler(), new LogEventPoolHandler());
         disruptor.start();
+
+        System.out.println("Main Thread:" + Thread.currentThread().getId());
 
         RingBuffer ringBuffer = disruptor.getRingBuffer();
         final LogEventProducer logEventProducer = new LogEventProducer(ringBuffer);
 
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(10);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             String log = "log Event:" + i;
             new Thread(() -> {
                 try {
-                    Thread.sleep(20);
-                } catch (InterruptedException e) {
+                    cyclicBarrier.await();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 logEventProducer.send(log);
