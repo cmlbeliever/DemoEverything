@@ -32,12 +32,14 @@ public class Entrance {
 //        Disruptor<LogEvent> disruptor = new Disruptor<LogEvent>(new LogEventFactory(),
 //                1024, executorService, ProducerType.SINGLE,
 //                new YieldingWaitStrategy());
-        int ringBufferSize = 1024;
+        int ringBufferSize = 4;
         Disruptor<LogEvent> disruptor = new Disruptor<>(new LogEventFactory(),
                 ringBufferSize, new ThreadFactoryBuilder().build(), ProducerType.MULTI,
                 new YieldingWaitStrategy());
         //多个消费者之间会重复消费消息
-        disruptor.handleEventsWith(new LogEventHandler(), new LogEventHandler());
+        disruptor.handleEventsWith(new LogEventHandler()).then((logEvent, sequence, endOfBatch) -> {
+            System.out.println("end--->" + sequence);
+        });
         //多个消费者共同处理消息
 //        disruptor.handleEventsWithWorkerPool(new LogEventPoolHandler(), new LogEventPoolHandler(), new LogEventPoolHandler());
         disruptor.start();
@@ -45,6 +47,7 @@ public class Entrance {
         System.out.println("Main Thread:" + Thread.currentThread().getId());
 
         RingBuffer ringBuffer = disruptor.getRingBuffer();
+//        ringBuffer.createMultiProducer(new LogEventFactory(),ringBufferSize);
         final LogEventProducer logEventProducer = new LogEventProducer(ringBuffer);
 
         CyclicBarrier cyclicBarrier = new CyclicBarrier(10);
@@ -52,15 +55,16 @@ public class Entrance {
         for (int i = 0; i < 10; i++) {
             String log = "log Event:" + i;
             new Thread(() -> {
-                try {
-                    cyclicBarrier.await();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    cyclicBarrier.await();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 logEventProducer.send(log);
 
             }).start();
         }
+        System.out.println("sendEnd======");
         Thread.sleep(5000);
         disruptor.shutdown();
         executorService.shutdown();
