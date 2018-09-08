@@ -5,9 +5,6 @@ package com.cml.learn.jooq.domain;
 
 
 import com.cml.learn.jooq.domain.tables.Author;
-import com.cml.learn.jooq.domain.tables.Book;
-import com.cml.learn.jooq.domain.tables.BookStore;
-import com.cml.learn.jooq.domain.tables.Language;
 
 import javax.annotation.Generated;
 
@@ -34,11 +31,6 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index AUTHOR_PRIMARY = Indexes0.AUTHOR_PRIMARY;
-    public static final Index BOOK_FK_BOOK_AUTHOR = Indexes0.BOOK_FK_BOOK_AUTHOR;
-    public static final Index BOOK_FK_BOOK_LANGUAGE = Indexes0.BOOK_FK_BOOK_LANGUAGE;
-    public static final Index BOOK_PRIMARY = Indexes0.BOOK_PRIMARY;
-    public static final Index BOOK_STORE_NAME = Indexes0.BOOK_STORE_NAME;
-    public static final Index LANGUAGE_PRIMARY = Indexes0.LANGUAGE_PRIMARY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -46,10 +38,5 @@ public class Indexes {
 
     private static class Indexes0 {
         public static Index AUTHOR_PRIMARY = Internal.createIndex("PRIMARY", Author.AUTHOR, new OrderField[] { Author.AUTHOR.ID }, true);
-        public static Index BOOK_FK_BOOK_AUTHOR = Internal.createIndex("fk_book_author", Book.BOOK, new OrderField[] { Book.BOOK.AUTHOR_ID }, false);
-        public static Index BOOK_FK_BOOK_LANGUAGE = Internal.createIndex("fk_book_language", Book.BOOK, new OrderField[] { Book.BOOK.LANGUAGE_ID }, false);
-        public static Index BOOK_PRIMARY = Internal.createIndex("PRIMARY", Book.BOOK, new OrderField[] { Book.BOOK.ID }, true);
-        public static Index BOOK_STORE_NAME = Internal.createIndex("name", BookStore.BOOK_STORE, new OrderField[] { BookStore.BOOK_STORE.NAME }, true);
-        public static Index LANGUAGE_PRIMARY = Internal.createIndex("PRIMARY", Language.LANGUAGE, new OrderField[] { Language.LANGUAGE.ID }, true);
     }
 }

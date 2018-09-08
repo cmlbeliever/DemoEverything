@@ -5,9 +5,6 @@ package com.cml.learn.jooq.domain;
 
 
 import com.cml.learn.jooq.domain.tables.Author;
-import com.cml.learn.jooq.domain.tables.Book;
-import com.cml.learn.jooq.domain.tables.BookStore;
-import com.cml.learn.jooq.domain.tables.Language;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +30,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Jooqtest extends SchemaImpl {
 
-    private static final long serialVersionUID = 750516127;
+    private static final long serialVersionUID = 718273971;
 
     /**
      * The reference instance of <code>jooqtest</code>
@@ -44,21 +41,6 @@ public class Jooqtest extends SchemaImpl {
      * The table <code>jooqtest.author</code>.
      */
     public final Author AUTHOR = com.cml.learn.jooq.domain.tables.Author.AUTHOR;
-
-    /**
-     * The table <code>jooqtest.book</code>.
-     */
-    public final Book BOOK = com.cml.learn.jooq.domain.tables.Book.BOOK;
-
-    /**
-     * The table <code>jooqtest.book_store</code>.
-     */
-    public final BookStore BOOK_STORE = com.cml.learn.jooq.domain.tables.BookStore.BOOK_STORE;
-
-    /**
-     * The table <code>jooqtest.language</code>.
-     */
-    public final Language LANGUAGE = com.cml.learn.jooq.domain.tables.Language.LANGUAGE;
 
     /**
      * No further instances allowed
@@ -85,9 +67,6 @@ public class Jooqtest extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Author.AUTHOR,
-            Book.BOOK,
-            BookStore.BOOK_STORE,
-            Language.LANGUAGE);
+            Author.AUTHOR);
     }
 }

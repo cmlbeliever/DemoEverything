@@ -1,8 +1,10 @@
 package com.cml.learn.jooq;
 
 import org.jooq.DSLContext;
+import org.jooq.ExecuteListenerProvider;
 import org.jooq.Record;
 import org.jooq.Result;
+import org.jooq.impl.DefaultExecuteListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,6 +30,12 @@ public class JooQApplication {
     @Autowired
     DataSource dataSource;
 
+
+    @Bean
+    public ExecuteListenerProvider executeListenerProvider() {
+        return MyExecuteListener::new;
+    }
+
     @Bean
     public ApplicationRunner runner() {
         return (args) -> {
@@ -37,7 +45,7 @@ public class JooQApplication {
                 Long id = r.getValue(AUTHOR.ID);
                 String firstName = r.getValue(AUTHOR.FIRST_NAME);
                 String lastName = r.getValue(AUTHOR.LAST_NAME);
-                System.out.println("=======>ID: " + id + " first name: " + firstName + " last name: " + lastName+":"+dataSource.getClass());
+                System.out.println("=======>ID: " + id + " first name: " + firstName + " last name: " + lastName + ":" + dataSource.getClass());
             }
         };
     }

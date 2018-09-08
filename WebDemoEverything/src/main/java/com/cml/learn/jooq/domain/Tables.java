@@ -5,9 +5,6 @@ package com.cml.learn.jooq.domain;
 
 
 import com.cml.learn.jooq.domain.tables.Author;
-import com.cml.learn.jooq.domain.tables.Book;
-import com.cml.learn.jooq.domain.tables.BookStore;
-import com.cml.learn.jooq.domain.tables.Language;
 
 import javax.annotation.Generated;
 
@@ -29,19 +26,4 @@ public class Tables {
      * The table <code>jooqtest.author</code>.
      */
     public static final Author AUTHOR = com.cml.learn.jooq.domain.tables.Author.AUTHOR;
-
-    /**
-     * The table <code>jooqtest.book</code>.
-     */
-    public static final Book BOOK = com.cml.learn.jooq.domain.tables.Book.BOOK;
-
-    /**
-     * The table <code>jooqtest.book_store</code>.
-     */
-    public static final BookStore BOOK_STORE = com.cml.learn.jooq.domain.tables.BookStore.BOOK_STORE;
-
-    /**
-     * The table <code>jooqtest.language</code>.
-     */
-    public static final Language LANGUAGE = com.cml.learn.jooq.domain.tables.Language.LANGUAGE;
 }

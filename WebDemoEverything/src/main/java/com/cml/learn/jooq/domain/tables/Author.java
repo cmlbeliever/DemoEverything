@@ -9,13 +9,13 @@ import com.cml.learn.jooq.domain.Jooqtest;
 import com.cml.learn.jooq.domain.Keys;
 import com.cml.learn.jooq.domain.tables.records.AuthorRecord;
 
-import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Author extends TableImpl<AuthorRecord> {
 
-    private static final long serialVersionUID = -1399582963;
+    private static final long serialVersionUID = 163595619;
 
     /**
      * The reference instance of <code>jooqtest.author</code>
@@ -57,32 +57,17 @@ public class Author extends TableImpl<AuthorRecord> {
     /**
      * The column <code>jooqtest.author.id</code>.
      */
-    public final TableField<AuthorRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<AuthorRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>jooqtest.author.first_name</code>.
      */
-    public final TableField<AuthorRecord, String> FIRST_NAME = createField("first_name", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
+    public final TableField<AuthorRecord, String> FIRST_NAME = createField("first_name", org.jooq.impl.SQLDataType.VARCHAR(128), this, "");
 
     /**
      * The column <code>jooqtest.author.last_name</code>.
      */
-    public final TableField<AuthorRecord, String> LAST_NAME = createField("last_name", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
-
-    /**
-     * The column <code>jooqtest.author.date_of_birth</code>.
-     */
-    public final TableField<AuthorRecord, Date> DATE_OF_BIRTH = createField("date_of_birth", org.jooq.impl.SQLDataType.DATE, this, "");
-
-    /**
-     * The column <code>jooqtest.author.year_of_birth</code>.
-     */
-    public final TableField<AuthorRecord, Long> YEAR_OF_BIRTH = createField("year_of_birth", org.jooq.impl.SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>jooqtest.author.distinguished</code>.
-     */
-    public final TableField<AuthorRecord, Integer> DISTINGUISHED = createField("distinguished", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<AuthorRecord, String> LAST_NAME = createField("last_name", org.jooq.impl.SQLDataType.VARCHAR(128), this, "");
 
     /**
      * Create a <code>jooqtest.author</code> table reference
@@ -127,6 +112,14 @@ public class Author extends TableImpl<AuthorRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.AUTHOR_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<AuthorRecord, Long> getIdentity() {
+        return Keys.IDENTITY_AUTHOR;
     }
 
     /**

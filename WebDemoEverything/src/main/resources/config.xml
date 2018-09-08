@@ -41,7 +41,7 @@
             <packageName>com.cml.learn.jooq.domain</packageName>
 
             <!-- The destination directory of your generated classes. Using Maven directory layout here -->
-            <directory>E:/gitrepository/DemoEverything/WebDemoEverything/src/main/java/</directory>
+            <directory>D:/gitrepository/DemoEverything/WebDemoEverything/src/main/java/</directory>
         </target>
     </generator>
 </configuration>
