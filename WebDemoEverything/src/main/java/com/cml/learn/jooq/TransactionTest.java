@@ -19,7 +19,7 @@ public class TransactionTest {
 
     public void testTransaction() {
         dslContext.update(Author.AUTHOR).set(Author.AUTHOR.LAST_NAME, "update:" + System.currentTimeMillis()).execute();
-        dslContext.update(Author.AUTHOR).set(Author.AUTHOR.LAST_NAME, "===update:" + System.currentTimeMillis()).execute();
+//        dslContext.update(Author.AUTHOR).set(Author.AUTHOR.LAST_NAME, "===update:" + System.currentTimeMillis()).execute();
 
         Result<Record> result = dslContext.select().from(AUTHOR).fetch();
         for (Record r : result) {

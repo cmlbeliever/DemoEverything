@@ -1,9 +1,7 @@
 package com.cml.learn.jooq;
 
-import org.jooq.DSLContext;
-import org.jooq.ExecuteListenerProvider;
-import org.jooq.Record;
-import org.jooq.Result;
+import com.cml.learn.jooq.domain.tables.Author;
+import org.jooq.*;
 import org.jooq.impl.DefaultExecuteListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
@@ -30,17 +28,31 @@ public class JooQApplication {
     @Autowired
     DataSource dataSource;
 
+    @Bean
+    RecordListenerProvider provider() {
+        return new RecordListenerProvider() {
+            @Override
+            public RecordListener provide() {
+                return new MyRecordListener();
+            }
+        };
+    }
+
+    @Bean
+    public MyRecordListener myRecordListener() {
+        return new MyRecordListener();
+    }
 
     @Bean
     public ExecuteListenerProvider executeListenerProvider() {
         return MyExecuteListener::new;
     }
 
-    @Bean
+    //    @Bean
     public ApplicationRunner runner() {
         return (args) -> {
             System.out.println(dataSource.getClass());
-            Result<Record> result = dslContext.select().from(AUTHOR).fetch();
+            Result<Record> result = dslContext.select().from(AUTHOR).where(AUTHOR.ID.eq(1L)).fetch();
             for (Record r : result) {
                 Long id = r.getValue(AUTHOR.ID);
                 String firstName = r.getValue(AUTHOR.FIRST_NAME);
@@ -53,7 +65,8 @@ public class JooQApplication {
     @Bean
     public ApplicationRunner testTransaction(TransactionTest transactionTest) {
         return (args) -> {
-            System.out.println("==========================");
+//            int count = dslContext.update(Author.AUTHOR).set(Author.AUTHOR.LAST_NAME, "update:" + System.currentTimeMillis()).execute();
+//            System.out.println("==========================" + count);
             transactionTest.testTransaction();
         };
     }
