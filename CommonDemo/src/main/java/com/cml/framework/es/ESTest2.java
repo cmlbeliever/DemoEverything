@@ -1,5 +1,7 @@
 package com.cml.framework.es;
 
+import com.cml.framework.es.mapping.Index;
+import com.cml.framework.es.mapping.MappingParser;
 import com.google.gson.*;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
@@ -20,6 +22,7 @@ import org.elasticsearch.rest.action.admin.indices.RestGetIndicesAction;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,9 +46,9 @@ public class ESTest2 {
 //        System.out.println("查询到的结果");
 //        System.out.println(jsonObject);
 
-        System.out.println("-----------------------------getIndex-------------------------------");
-        getIndex(jestClient);
-        System.out.println("-----------------------------getIndex-------------------------------");
+//        System.out.println("-----------------------------getIndex-------------------------------");
+//        getIndex(jestClient);
+//        System.out.println("-----------------------------getIndex-------------------------------");
 
         System.out.println("---------------------------getmapping-----------------");
         getMapping(jestClient);
@@ -72,15 +75,14 @@ public class ESTest2 {
     }
 
     private static void getMapping(JestClient jestClient) throws IOException {
-        GetMapping getMapping = new GetMapping.Builder().addIndex("logstash-web-request-*").build();
+        GetMapping getMapping = new GetMapping.Builder().addIndex("logstash-*").build();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JestResult execute = jestClient.execute(getMapping);
 
         JsonObject mappingRoot = execute.getJsonObject();
 
-        System.out.println(mappingRoot.size());
-
-        System.out.println(gson.toJson(execute.getJsonObject()));
+        List<Index> indices = new MappingParser().parse(mappingRoot);
+        System.out.println(new Gson().toJson(indices));
     }
 
     public static JsonObject searchEvent(JestClient jestClient) {
