@@ -24,6 +24,17 @@ public class ReactorContextTest {
                     System.out.println("t:" + t);
                 }).subscribe();
 
+        Mono.just("hello")
+                .flatMap(s -> Mono.subscriberContext())
+                .map(t -> t.get("request"))
+                .doOnTerminate(() -> {
+                    System.out.println("finally:" + Mono.subscriberContext().map(ctx -> ctx.getOrEmpty("request")).block().orElse("default"));
+                })
+                .subscriberContext(ctx -> ctx.put("request", "下游设置数据给上游"))
+                .doOnNext(t -> {
+                    System.out.println("t:" + t);
+                }).subscribe();
+
         StepVerifier.create(r)
                 .expectNext("Hello World")
                 .verifyComplete();
