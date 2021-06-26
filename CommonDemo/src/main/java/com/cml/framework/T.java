@@ -1,5 +1,7 @@
 package com.cml.framework;
 
+import org.apache.log4j.DailyRollingFileAppender;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,6 +31,7 @@ public class T {
 		// System.out.println(t.retrieveData(data4));
 		String realData = t.retrieveData(data4);
 		System.out.println(t.decrpt(realData));
+
 	}
 
 	public String decrpt(String msg) {
