@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
  */
 public class QuickSort {
     public static void main(String[] args) {
-        int[] source = new int[]{6, 1, 2, 7, 9, 30, 4, 5, 10, 8};
+        int[] source = new int[]{6, 1, 2, 7, 1, 3, 565, 9, 30, 4, 5, 10, 8};
         quickSort(source, 0, source.length - 1);
         IntStream.of(source).forEach(t -> {
             System.out.print(t + ",");
@@ -28,7 +28,7 @@ public class QuickSort {
         int i = start;
         int j = end;
 
-        while (i != j) {
+        while (i < j) {
             while (source[j] >= temp && j > i) {
                 j--;
             }
